@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
+
+    <title>JS Quiz App!</title>
+
+    <script type="text/javascript">
+    	var ind = 0
+    	var lis = [
+	    	{
+	    		que:"What is the captial of Madhya Pradesh ?",
+	    		one:"Bhopal",
+	    		two:"Vidisha",
+	    		three:"Sehore",
+	    		four:"Indore",
+	    		corr:1,
+	    		score:0
+	    	},
+	    	{
+	    		que:"What is the captial of Uttar Pradesh ?",
+	    		one:"Lucknow",
+	    		two:"Vidisha",
+	    		three:"Sehore",
+	    		four:"Indore",
+	    		corr:1,
+	    		score:0
+	    	},
+	    	{
+	    		que:"What is the captial of Gujrat ?",
+	    		one:"Bhopal",
+	    		two:"Gandhinagar",
+	    		three:"Sehore",
+	    		four:"Indore",
+	    		corr:2,
+	    		score:0
+	    	},
+	    	{
+	    		que:"What is the captial of Kerla ?",
+	    		one:"Bhopal",
+	    		two:"Gandhinagar",
+	    		three:"Thiruvananthapuram",
+	    		four:"Indore",
+	    		corr:3,
+	    		score:0
+	    	}
+    	]
+    	
+    	function auth(event){
+    		event.preventDefault()
+    		var usr = document.getElementById("usr").value;
+    		var pass = document.getElementById("pass").value;
+    		if(usr.toLowerCase() == "admin" && pass.toLowerCase() == "admin")
+    		{
+    			alert("Get ready for test")
+    			document.getElementById("authcont").style.display = "None";
+    			document.body.style.backgroundColor = "#eaf4f4"
+    			document.getElementById("testcont").style.display = "block";
+    			document.getElementById("quest").innerHTML ="Que. "+(ind+1)+" "+lis[ind].que;
+    			document.getElementById("one").innerHTML = "a. "+lis[ind].one;
+    			document.getElementById("two").innerHTML = "b. "+lis[ind].two;
+    			document.getElementById("three").innerHTML = "c. "+lis[ind].three;
+    			document.getElementById("four").innerHTML = "d. "+lis[ind].four;
+
+    		}
+    		else{
+    			alert("Wrong Credentials!")
+    		}
+    	}
+
+    	function checkAns(val)
+    	{
+    		if(lis[ind].corr == val){
+    			lis[ind].score = 1
+    		}
+    		else{
+    			lis[ind].score = 0
+    		}
+    	}
+
+    	function next(){
+    		let temp = ind+1
+    		let l = lis.length
+    		if(temp == l){
+    			alert("You are at last question.")
+    		}
+    		else{
+    			ind = temp
+    			document.getElementById("quest").innerHTML ="Que. "+(ind+1)+" "+lis[ind].que;
+    			document.getElementById("one").innerHTML = "a. "+lis[ind].one;
+    			document.getElementById("two").innerHTML = "b. "+lis[ind].two;
+    			document.getElementById("three").innerHTML = "c. "+lis[ind].three;
+    			document.getElementById("four").innerHTML = "d. "+lis[ind].four;
+    		}
+    	}
+
+    	function prev(){
+    		let temp = ind-1
+    		if(temp == -1){
+    			alert("You are at starting question")
+    		}
+    		else{
+    			ind = temp
+    			document.getElementById("quest").innerHTML ="Que. "+(ind+1)+" "+lis[ind].que;
+    			document.getElementById("one").innerHTML = "a. "+lis[ind].one;
+    			document.getElementById("two").innerHTML = "b. "+lis[ind].two;
+    			document.getElementById("three").innerHTML = "c. "+lis[ind].three;
+    			document.getElementById("four").innerHTML = "d. "+lis[ind].four;
+    		}
+    	}
+
+    	function submitTest(){
+    		let c = confirm("Click ok to submit quiz ?")
+    		if(c){
+    			let l = lis.length
+	    		let sum = 0
+	    		for(let j = 0;j<l;j++)
+	    		{
+	    			sum = sum+lis[j].score
+	    		}
+	    		alert("You have scored "+sum+"/"+l)
+	    		document.getElementById("testcont").style.display = "None"
+	    		document.getElementById("authcont").style.display = "Block";
+	    		document.getElementById("usr").value = ""
+	    		document.getElementById("pass").value = ""
+    		}
+    	}
+    </script>
+
+    <style type="text/css">
+    	body{
+    		background-image: linear-gradient(to right,#e5e6e7,#e5e6e7)
+    	}
+
+    	*{
+    		box-shadow: none !important;
+    		outline: none !important;
+    		font-family: 'Poppins', sans-serif;
+    	}
+
+    	.infield{
+    		margin: 10px;
+    	}
+
+    	.options{
+    		margin:10px;
+    	}
+
+    	.options .form-control{
+    		text-align: left !important;
+    	}
+
+    	.options button:focus{
+    		background-color: #0d6efd;
+    		color: white;
+    	}
+
+    	.options button:hover{
+    		background-color: #0d6efd;
+    		color: white;
+    	}
+
+    	.controlbut{
+    		margin:5px 0px;
+    	}
+    </style>
+
+
+  </head>
+  <body>
+
+  	<div class="container" id="authcont">
+  		<div align="center">
+  			<div class="row">
+	  			<div class="col-lg-4 offset-lg-4 col-md-6 offset-md-3 col-sm-8 offset-sm-2 col-xs-8 offset-xs-2 text-center" style="padding: 30px;margin-top:130px !important;">
+	  				<div id="passblock" style="padding: 20px;background-color: #ffffff;border-radius: 10px;">
+	  					<div>
+		  					<h5>JS Quiz Authentication</h5>
+		  				</div>
+		  				<div style="height: 10px;"></div>
+		  				<div>
+		  					<form onsubmit="auth(event)">
+		  						<div class="form-group infield">
+			  						<input type="text" id="usr" name="usr" placeholder="Username" class="form-control">
+			  					</div>
+			  					<div class="form-group infield">
+			  						<input type="text" id="pass" name="pass" placeholder="Password" class="form-control">
+			  					</div>
+			  					<div class="form-group infield">
+			  						<input type="submit" name="sub" value="Start Test" class="form-control btn-primary">
+			  					</div>
+		  					</form>
+		  				</div>
+	  				</div>
+	  			</div>
+	  		</div>
+  		</div>
+  	</div>
+
+  	
+  	<div class="container" id="testcont">
+  		<div style="height: 20px;"></div>
+  		<div align="center">
+  			<p style="font-size:30px">JS Quiz Environment</p>
+  		</div>
+  		<div style="height: 50px;"></div>
+  		<div class="row" style="margin: 10px;background-color: #ffffff;padding: 30px;border-left:5px solid #0d6efd">
+  			<div class="col-lg-10 offset-lg-1">
+  				<div>
+  					<h6><b id="quest"></b></h6>
+  				</div>
+  				<div class="options">
+  					<button class="form-control btn " onclick="checkAns(1)" id="one"></button>
+  				</div>
+  				<div class="options">
+  					<button class="form-control btn " onclick="checkAns(2)" id="two"></button>
+  				</div>
+  				<div class="options">
+  					<button class="form-control btn " onclick="checkAns(3)" id="three"></button>
+  				</div>
+  				<div class="options">
+  					<button class="form-control btn " onclick="checkAns(4)" id="four"></button>
+  				</div>
+  			</div>
+  			<br>
+  			<div class="col-lg-10 offset-lg-1">
+  				<div>
+	  				<button class="btn btn-outline-primary controlbut" onclick="prev()"><</button> &nbsp 
+	  				<button class="btn btn-outline-primary controlbut" onclick="next()">></button> &nbsp 
+	  				<button class="btn btn-primary controlbut" onclick="submitTest()">Submit</button>
+	  			</div>
+  			</div>
+  		</div>
+  	</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+    	document.getElementById("testcont").style.display = "None"
+    </script>
+  </body>
+</html>
